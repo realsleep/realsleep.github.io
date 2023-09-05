@@ -9,14 +9,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Deploy
-        uses: reggionick/s3-deploy@v4
+      - name: Upload to S3
+        uses: shallwefootball/s3-upload-action@master
+        id: S3
         with:
-          folder: './'
-          bucket: ${{ secrets.S3_BUCKET }}
-          bucket-region: ${{ secrets.S3_BUCKET_REGION }}
-          invalidation: /
-          delete-removed: true
-          no-cache: true
-          private: true
-          files-to-include: '.*/*,*/*,**'
+          aws_key_id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws_secret_access_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: realsleep.github.io
+          source_dir: ./
